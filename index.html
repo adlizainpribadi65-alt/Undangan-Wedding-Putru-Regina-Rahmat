@@ -51,6 +51,9 @@
       overflow-x: hidden;
       color: var(--navy);
       position: relative;
+      /* Pastikan tidak ada gap tersembunyi di atas konten */
+      padding-top: 0;
+      margin-top: 0;
     }
 
     /* ── FULL PAGE BACKGROUND — mobile-safe (no position:fixed on iOS) ── */
@@ -466,7 +469,8 @@
     #hero {
       position: relative;
       width: min(680px, 92vw);
-      margin: 3vh auto 0;
+      margin: 0 auto 0;
+      padding-top: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -638,11 +642,11 @@
     /* ── PAGES WRAP ── */
     .pages-wrap {
       position: relative;
-      padding: 1.5rem 0 5vh;
+      padding: 1rem 0 5vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
       background: transparent;
       z-index: 1;
     }
@@ -2226,6 +2230,17 @@
         content-visibility: auto;
         contain-intrinsic-size: 0 500px;
       }
+
+      /* Kurangi gap antar section di mobile */
+      .pages-wrap {
+        gap: 0.75rem !important;
+        padding: 0.5rem 0 4rem !important;
+      }
+
+      /* Kurangi margin hero di mobile */
+      #hero {
+        padding-top: 0.75rem !important;
+      }
     }
   </style>
 </head>
@@ -2240,7 +2255,7 @@
 
   <!-- PARTICLES & 3D ROSE PETALS -->
   <!-- #particles dihapus untuk performa mobile -->
-  <div id="rose-petals-wrap"></div>
+  <div id="rose-petals-wrap" style="position:fixed;inset:0;pointer-events:none;z-index:998;overflow:hidden;"></div>
 
   <!-- HIDDEN SVG DEFS FOR PETALS & CHIP -->
   <svg width="0" height="0" style="position:absolute;visibility:hidden;pointer-events:none;" aria-hidden="true">
@@ -2994,6 +3009,9 @@
   <script>
     // ── INTRO + GERBANG PATAHAN LOVE ──
     function openInvitation() {
+      // Reset scroll ke paling atas agar hero langsung terlihat
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
       // Mulai putar lagu saat undangan dibuka
       const bgm = document.getElementById('bgm');
       const btn = document.getElementById('music-btn');
