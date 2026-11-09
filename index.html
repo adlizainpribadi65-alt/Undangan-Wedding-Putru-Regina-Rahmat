@@ -3010,6 +3010,9 @@
       const bgm = document.getElementById('bgm');
       const btn = document.getElementById('music-btn');
       if (bgm) {
+        // Mulai dari bagian reff (detik ke-57 = ~0:57)
+        // Ubah angka 57 jika ingin mulai dari posisi berbeda
+        bgm.currentTime = 57;
         bgm.play().then(() => {
           if (btn) btn.classList.add('playing');
         }).catch(err => {
