@@ -90,7 +90,6 @@
     }
 
     /* All sections sit above bg */
-    #particles,
     #gate,
     .gate-center-line,
     #intro,
@@ -1427,25 +1426,6 @@
       filter: drop-shadow(0 0 6px rgba(201, 168, 76, 0.8));
     }
 
-    /* ── GOLDEN FIREFLIES / STARDUST ── */
-    #particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffffff 0%, #fff4d0 35%, #d4af37 80%, rgba(201, 168, 76, 0.4) 100%);
-      box-shadow: 0 0 8px rgba(255, 244, 208, 0.95), 0 0 16px rgba(201, 168, 76, 0.7);
-      animation: fireflyFloat linear infinite, fireflyTwinkle ease-in-out infinite alternate;
-      opacity: 0;
-      filter: blur(0.2px);
-    }
-
     /* ── KEYFRAMES ── */
     @keyframes fadeUp {
       from {
@@ -1478,36 +1458,6 @@
 
       50% {
         transform: rotate(45deg) translateY(7px)
-      }
-    }
-
-    @keyframes fireflyFloat {
-      0% {
-        transform: translateY(105vh) translateX(0) scale(0.5);
-        opacity: 0;
-      }
-
-      12% {
-        opacity: var(--op, 0.85);
-      }
-
-      88% {
-        opacity: var(--op, 0.85);
-      }
-
-      100% {
-        transform: translateY(-8vh) translateX(var(--drift)) scale(1.3);
-        opacity: 0;
-      }
-    }
-
-    @keyframes fireflyTwinkle {
-      0% {
-        filter: drop-shadow(0 0 3px rgba(201, 168, 76, 0.4));
-      }
-
-      100% {
-        filter: drop-shadow(0 0 12px rgba(255, 244, 208, 0.95)) drop-shadow(0 0 20px rgba(201, 168, 76, 0.7));
       }
     }
 
@@ -2219,7 +2169,7 @@
   </div>
 
   <!-- PARTICLES & 3D ROSE PETALS -->
-  <div id="particles"></div>
+  <!-- #particles dihapus untuk performa mobile -->
   <div id="rose-petals-wrap"></div>
 
   <!-- HIDDEN SVG DEFS FOR PETALS & CHIP -->
@@ -2998,7 +2948,6 @@
       // Begitu tombol Buka Undangan diklik, cover memudar dan gerbang dengan patahan love terbuka
       setTimeout(() => {
         openGate();
-        startParticles();
         startPetals();
       }, 350);
     }
@@ -3315,34 +3264,7 @@
       else { bgm.pause(); btn.classList.remove('playing'); }
     }
 
-    // ── GOLDEN FIREFLIES / STARDUST ──
-    function startParticles() {
-      const wrap = document.getElementById('particles');
-      if (!wrap) return;
-      wrap.innerHTML = '';
-      const count = 26;
-      for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const sz = 2.5 + Math.random() * 3.5;
-        const dur = 9 + Math.random() * 11;
-        const delay = Math.random() * 10;
-        const twinkleDur = 2 + Math.random() * 2.5;
-        const drift = (Math.random() - 0.5) * 150;
-        const op = 0.55 + Math.random() * 0.4;
-
-        p.style.cssText = `
-          left:${Math.random() * 100}%;
-          width:${sz}px;
-          height:${sz}px;
-          animation-duration:${dur}s, ${twinkleDur}s;
-          animation-delay:${delay}s, ${Math.random() * 2}s;
-          --drift:${drift}px;
-          --op:${op};
-        `;
-        wrap.appendChild(p);
-      }
-    }
+    // ── GOLDEN FIREFLIES dihapus untuk performa mobile ──
 
     // ── 3D LUXURY ROSE PETALS (CHAMPAGNE & BLUSH) ──
     function startPetals() {
