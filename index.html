@@ -11,10 +11,14 @@
   <meta property="og:title" content="The Wedding of Rohmat Hidayat, S.Ak & Putri Regina">
   <meta property="og:description"
     content="Senin, 28 Desember 2026 · Kp. Ciawigede, Desa Pasirhuni, Kec. Cimaung, Kab. Bandung.">
-  <meta property="og:image" content="couple.png">
+  <meta property="og:image" content="couple.jpg">
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap"
     rel="stylesheet">
+  <!-- Preload gambar kritis -->
+  <link rel="preload" as="image" href="landscape_grey.jpg">
+  <link rel="preload" as="image" href="floral_grey.jpg">
+  <link rel="preload" as="image" href="couple.jpg">
   <style>
     *,
     *::before,
@@ -53,7 +57,7 @@
     /* Background dipasang di body agar bekerja di semua browser mobile */
     body {
       background-color: #1e2126;
-      background-image: url('floral_grey.png'), url('landscape_grey.png');
+      background-image: url('floral_grey.jpg'), url('landscape_grey.jpg');
       background-size: cover, cover;
       background-position: center, center top;
       background-repeat: no-repeat, no-repeat;
@@ -78,7 +82,7 @@
     #bg-layer-img {
       position: absolute;
       inset: 0;
-      background: url('landscape_grey.png') center top/cover no-repeat;
+      background: url('landscape_grey.jpg') center top/cover no-repeat;
       opacity: 0.38;
     }
 
@@ -122,7 +126,7 @@
     .intro-bg-img {
       position: absolute;
       inset: 0;
-      background: url('landscape_grey.png') center top/cover no-repeat;
+      background: url('landscape_grey.jpg') center top/cover no-repeat;
       opacity: 0.38;
       pointer-events: none;
     }
@@ -137,7 +141,7 @@
     .intro-floral {
       position: absolute;
       inset: 0;
-      background: url('floral_grey.png') center/cover no-repeat;
+      background: url('floral_grey.jpg') center/cover no-repeat;
       opacity: 0.08;
       pointer-events: none;
     }
@@ -328,7 +332,7 @@
       top: 0;
       bottom: 0;
       width: 100vw;
-      background: url('landscape_grey.png') center top/cover no-repeat;
+      background: url('landscape_grey.jpg') center top/cover no-repeat;
       opacity: 0.38;
       z-index: 1;
     }
@@ -484,7 +488,7 @@
     #hero-bg {
       position: absolute;
       inset: 0;
-      background: url('floral_grey.png') center/cover no-repeat;
+      background: url('floral_grey.jpg') center/cover no-repeat;
       opacity: 0.05;
       pointer-events: none;
       mask-image: radial-gradient(ellipse at center, black 40%, transparent 92%);
@@ -668,7 +672,7 @@
     .page-bg {
       position: absolute;
       inset: 0;
-      background: url('floral_grey.png') center/cover no-repeat;
+      background: url('floral_grey.jpg') center/cover no-repeat;
       opacity: 0.05;
       pointer-events: none;
       mask-image: radial-gradient(ellipse at center, black 40%, transparent 92%);
@@ -2157,6 +2161,72 @@
         text-align: left
       }
     }
+
+    /* ═══════════════════════════════════════════════════
+       MOBILE PERFORMANCE OPTIMIZATIONS
+       Nonaktifkan efek berat di layar kecil / HP
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 600px) {
+
+      /* Nonaktifkan backdrop-filter — paling berat di HP */
+      #hero,
+      .page,
+      .guest-modal-inner,
+      .lightbox-inner,
+      #bottom-nav {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(28, 31, 36, 0.96) !important;
+      }
+
+      /* Nonaktifkan border gleam (animasi conic-gradient memutar) */
+      .border-gleam {
+        display: none !important;
+      }
+
+      /* Nonaktifkan glare 3D holographic */
+      .card-3d-glare {
+        display: none !important;
+      }
+
+      /* Nonaktifkan transform-style 3D dan will-change di card */
+      .portrait-card,
+      .event-card,
+      .couple-full,
+      .gift-card {
+        transform-style: flat !important;
+        will-change: auto !important;
+        transition: none !important;
+      }
+
+      /* Perlambat / sederhanakan animasi page scroll */
+      .page {
+        transition: opacity 0.5s ease !important;
+        transform: none !important;
+      }
+      .page.visible {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      /* Kurangi efek sway/zoom pada gambar portrait */
+      .portrait-card img {
+        transition: none !important;
+      }
+
+      /* Nonaktifkan background-attachment: fixed (menyebabkan repaint terus di iOS) */
+      body {
+        background-attachment: scroll, scroll !important;
+      }
+
+      /* Content-visibility: auto — browser skip render section di luar viewport */
+      #galeri,
+      #ucapan,
+      #hadiah {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 500px;
+      }
+    }
   </style>
 </head>
 
@@ -2371,7 +2441,7 @@
         <span class="eyebrow">Mempelai</span>
         <div class="portrait-grid">
           <div class="portrait-card">
-            <img src="groom.png?v=3" alt="Rohmat Hidayat, S.Ak" width="400" height="533" loading="eager"
+            <img src="groom.jpg" alt="Rohmat Hidayat, S.Ak" width="400" height="533" loading="eager"
               decoding="async" style="width:100%;height:100%;object-fit:cover;">
             <div class="portrait-label">
               <div class="pname">Rohmat Hidayat, S.Ak</div>
@@ -2379,7 +2449,7 @@
             </div>
           </div>
           <div class="portrait-card">
-            <img src="bride.png?v=3" alt="Putri Regina" width="400" height="533" loading="eager" decoding="async"
+            <img src="bride.jpg" alt="Putri Regina" width="400" height="533" loading="eager" decoding="async"
               style="width:100%;height:100%;object-fit:cover;">
             <div class="portrait-label">
               <div class="pname">Putri Regina</div>
@@ -2502,7 +2572,7 @@
       <div class="page-border">
         <span class="eyebrow">Kami Berdua</span>
         <div class="couple-full">
-          <img src="couple.png?v=2" alt="Rohmat & Regina">
+          <img src="couple.jpg" loading="lazy" alt="Rohmat & Regina">
         </div>
         <div class="divider"><span>✦</span></div>
         <p class="body-text" style="font-style:italic;">
@@ -2524,34 +2594,30 @@
         </div>
         <div class="divider"><span>❦</span></div>
 
-        <!-- Gallery 8 Foto Prewedding (Semua Unik, Tanpa Dobel) -->
+        <!-- Gallery 7 Foto Prewedding -->
         <div class="gallery-grid">
           <div class="gallery-item" onclick="openLightbox(0)">
             <img src="gallery1.jpg?v=2" alt="Prewedding 1" loading="lazy">
             <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
           </div>
           <div class="gallery-item" onclick="openLightbox(1)">
-            <img src="gallery2.jpg?v=2" alt="Prewedding 2" loading="lazy">
+            <img src="gallery3.jpg?v=2" alt="Prewedding 2" loading="lazy">
             <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
           </div>
           <div class="gallery-item" onclick="openLightbox(2)">
-            <img src="gallery3.jpg?v=2" alt="Prewedding 3" loading="lazy">
+            <img src="gallery8.jpg?v=2" alt="Prewedding 3" loading="lazy">
             <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
           </div>
           <div class="gallery-item" onclick="openLightbox(3)">
-            <img src="gallery8.jpg?v=2" alt="Prewedding 4" loading="lazy">
+            <img src="gallery4.jpg?v=2" alt="Prewedding 4" loading="lazy">
             <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
           </div>
           <div class="gallery-item" onclick="openLightbox(4)">
-            <img src="gallery4.jpg?v=2" alt="Prewedding 5" loading="lazy">
+            <img src="gallery5.jpg?v=2" alt="Prewedding 5" loading="lazy">
             <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
           </div>
           <div class="gallery-item" onclick="openLightbox(5)">
-            <img src="gallery5.jpg?v=2" alt="Prewedding 6" loading="lazy">
-            <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
-          </div>
-          <div class="gallery-item" onclick="openLightbox(6)">
-            <img src="gallery7.jpg?v=2" alt="Prewedding 7" loading="lazy">
+            <img src="gallery7.jpg?v=2" alt="Prewedding 6" loading="lazy">
             <div class="gallery-item-overlay"><span>✦ Lihat ✦</span></div>
           </div>
           <div class="gallery-item" onclick="openLightbox(7)">
@@ -2866,9 +2932,8 @@
   </div>
 
   <!-- AUDIO -->
-  <audio id="bgm" loop preload="auto">
+  <audio id="bgm" loop preload="none">
     <source src="wals-akhir-zaman.mp3" type="audio/mpeg">
-    <source src="beautiful-in-white.mp3" type="audio/mpeg">
   </audio>
 
   <!-- MUSIC TOGGLE (Top-Right Floating) -->
@@ -3194,7 +3259,6 @@
     // ── LIGHTBOX GALLERY ──
     const galleryImages = [
       'gallery1.jpg?v=2',
-      'gallery2.jpg?v=2',
       'gallery3.jpg?v=2',
       'gallery8.jpg?v=2',
       'gallery4.jpg?v=2',
@@ -3272,8 +3336,12 @@
       if (!wrap) return;
       wrap.innerHTML = '';
 
+      const isMobile = window.innerWidth < 600;
+      // HP: hanya 5 kelopak (sangat ringan), desktop: 14
+      if (isMobile) return; // nonaktifkan sepenuhnya di HP untuk performa
+
       const petalTypes = ['petal-grad-blush', 'petal-grad-gold', 'petal-grad-ivory'];
-      const count = 16;
+      const count = 14;
 
       for (let i = 0; i < count; i++) {
         const item = document.createElement('div');
@@ -3319,21 +3387,26 @@
 
     // ── 3D HOLOGRAPHIC GOLD TILT & BORDER GLEAM ──
     function init3DTilt() {
+      // Di mobile/HP: skip efek 3D tilt sepenuhnya (hemat GPU)
+      const isMobile = window.innerWidth < 600 || ('ontouchstart' in window && window.innerWidth < 900);
       const cards = document.querySelectorAll('.portrait-card, .event-card, .couple-full, .gift-card');
       cards.forEach(card => {
-        // Pasang lapisan kilau emas jika belum ada
-        if (!card.querySelector('.card-3d-glare')) {
+        // Pasang lapisan kilau emas jika belum ada (desktop saja)
+        if (!isMobile && !card.querySelector('.card-3d-glare')) {
           const glare = document.createElement('div');
           glare.className = 'card-3d-glare';
           card.appendChild(glare);
         }
 
-        // Pasang kilatan garis tepi emas jika belum ada
-        if (!card.querySelector('.border-gleam')) {
+        // Pasang kilatan garis tepi emas jika belum ada (desktop saja)
+        if (!isMobile && !card.querySelector('.border-gleam')) {
           const gleam = document.createElement('div');
           gleam.className = 'border-gleam';
           card.appendChild(gleam);
         }
+
+        // Skip event listener 3D di mobile
+        if (isMobile) return;
 
         const handleMove = (clientX, clientY) => {
           const rect = card.getBoundingClientRect();
@@ -3359,19 +3432,6 @@
         // Pointer / Mouse events (Desktop / Laptop)
         card.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
         card.addEventListener('mouseleave', handleReset);
-
-        // Touch events (Mobile Smartphone)
-        card.addEventListener('touchstart', e => {
-          card.classList.add('touching');
-          if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: true });
-
-        card.addEventListener('touchmove', e => {
-          if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: true });
-
-        card.addEventListener('touchend', handleReset);
-        card.addEventListener('touchcancel', handleReset);
       });
     }
 
