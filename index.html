@@ -3330,6 +3330,13 @@
         // Otomatis isikan nama tamu di form RSVP agar lebih praktis
         const rsvpNameEl = document.getElementById('rsvp-name');
         if (rsvpNameEl && !rsvpNameEl.value) rsvpNameEl.value = guest;
+
+        // ── Jika nama sudah ditetapkan via URL, sembunyikan tombol edit
+        // ── agar tamu tidak bisa mengubah nama undangan
+        const pillBtn = document.querySelector('.guest-edit-pill');
+        if (pillBtn) {
+          pillBtn.style.display = 'none';
+        }
       }
     } catch (e) {
       console.log('URL param notice:', e);
