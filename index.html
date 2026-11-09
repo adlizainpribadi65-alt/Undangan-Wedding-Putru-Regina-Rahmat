@@ -2148,17 +2148,81 @@
       }
 
       .timeline::before {
-        left: 8px
+        left: 16px;
+        width: 2px;
       }
 
+      /* Semua item jadi vertikal — garis kiri, konten full width */
       .tl-item,
       .tl-item:nth-child(even) {
-        flex-direction: row
+        flex-direction: row;
+        gap: 0;
+        margin-bottom: 0;
+        align-items: stretch;
+        padding: 0;
+      }
+
+      /* Sembunyikan tl-side kosong */
+      .tl-item .tl-side:empty {
+        display: none !important;
+        flex: 0 !important;
       }
 
       .tl-item:nth-child(odd) .tl-side,
       .tl-item:nth-child(even) .tl-side {
-        text-align: left
+        text-align: left;
+        flex: 1;
+      }
+
+      .tl-dot {
+        flex-shrink: 0;
+        margin-top: 0.6rem;
+        margin-left: 0;
+        margin-right: 0;
+        width: 11px;
+        height: 11px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .tl-year {
+        font-size: 0.6rem;
+        letter-spacing: 0.22em;
+        margin-bottom: 0.3rem;
+        color: var(--gold);
+      }
+
+      .tl-text {
+        font-size: 1rem;
+        line-height: 1.8;
+        word-break: normal;
+        overflow-wrap: break-word;
+        hyphens: none;
+      }
+
+      /* Kartu per item timeline di mobile */
+      .tl-item {
+        background: rgba(201,168,76,0.05);
+        border-left: 2px solid rgba(201,168,76,0.4);
+        border-radius: 0 6px 6px 0;
+        padding: 0.9rem 1rem 0.9rem 1.1rem !important;
+        margin-bottom: 0.85rem !important;
+      }
+
+      /* Sembunyikan garis vertikal global — pakai border-left kartu */
+      .timeline::before {
+        display: none;
+      }
+
+      /* Dot jadi ikon • di depan judul */
+      .tl-dot {
+        display: none;
+      }
+
+      .tl-year::before {
+        content: '✦ ';
+        color: var(--gold);
+        font-size: 0.55rem;
       }
     }
 
