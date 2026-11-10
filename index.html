@@ -3008,7 +3008,7 @@
   </div>
 
   <!-- AUDIO -->
-  <audio id="bgm" loop preload="none">
+  <audio id="bgm" preload="none">
     <source src="wals-akhir-zaman.mp3" type="audio/mpeg">
   </audio>
 
@@ -3074,9 +3074,8 @@
       const bgm = document.getElementById('bgm');
       const btn = document.getElementById('music-btn');
       if (bgm) {
-        // Mulai dari intro musik sebelum lirik "S'moga tetap berirama" (detik ke-113 = ~01:53)
-        // Vokal "S'moga tetap berirama" masuk di detik ke-123 (~02:03)
-        bgm.currentTime = 113;
+        // Mulai dari detik ke-16 sampai full
+        bgm.currentTime = 16;
         bgm.play().then(() => {
           if (btn) btn.classList.add('playing');
         }).catch(err => {
@@ -3412,6 +3411,12 @@
     // ── MUSIC ──
     const bgm = document.getElementById('bgm');
     const btn = document.getElementById('music-btn');
+    if (bgm) {
+      bgm.addEventListener('ended', () => {
+        bgm.currentTime = 16;
+        bgm.play();
+      });
+    }
     function toggleMusic() {
       if (bgm.paused) { bgm.play(); btn.classList.add('playing'); }
       else { bgm.pause(); btn.classList.remove('playing'); }
