@@ -3074,9 +3074,9 @@
       const bgm = document.getElementById('bgm');
       const btn = document.getElementById('music-btn');
       if (bgm) {
-        // Mulai dari bagian reff (detik ke-57 = ~0:57)
-        // Ubah angka 57 jika ingin mulai dari posisi berbeda
-        bgm.currentTime = 57;
+        // Mulai dari intro musik sebelum lirik "S'moga tetap berirama" (detik ke-113 = ~01:53)
+        // Vokal "S'moga tetap berirama" masuk di detik ke-123 (~02:03)
+        bgm.currentTime = 113;
         bgm.play().then(() => {
           if (btn) btn.classList.add('playing');
         }).catch(err => {
