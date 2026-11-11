@@ -3008,7 +3008,7 @@
   </div>
 
   <!-- AUDIO -->
-  <audio id="bgm" preload="none">
+  <audio id="bgm" preload="metadata">
     <source src="wals-akhir-zaman.mp3" type="audio/mpeg">
   </audio>
 
@@ -3074,9 +3074,20 @@
       const bgm = document.getElementById('bgm');
       const btn = document.getElementById('music-btn');
       if (bgm) {
-        // Mulai dari detik ke-16 sampai full
-        bgm.currentTime = 16;
+        // Mulai dari detik ke-16 sampai full (pastikan metadata sudah siap agar tidak reset ke 0)
+        const targetTime = 16;
+        const setTimeAndPlay = () => {
+          try { bgm.currentTime = targetTime; } catch(e) {}
+        };
+
+        if (bgm.readyState >= 1) {
+          setTimeAndPlay();
+        } else {
+          bgm.addEventListener('loadedmetadata', setTimeAndPlay, { once: true });
+        }
+
         bgm.play().then(() => {
+          setTimeAndPlay();
           if (btn) btn.classList.add('playing');
         }).catch(err => {
           console.log('Autoplay dihalangi browser:', err);
