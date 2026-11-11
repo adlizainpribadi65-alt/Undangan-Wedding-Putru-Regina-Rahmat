@@ -156,7 +156,19 @@
       justify-content: center;
       margin-bottom: 1.5rem;
       position: relative;
-      animation: rotateBorder 24s linear infinite, emblemAuraPulse 3.8s ease-in-out infinite alternate;
+      animation: softFloat 4.5s ease-in-out infinite, rotateBorder 24s linear infinite, emblemAuraPulse 3.8s ease-in-out infinite alternate;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* ── GPU ACCELERATED SOFT FLOAT ── */
+    @keyframes softFloat {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+      }
+      50% {
+        transform: translate3d(0, -6px, 0);
+      }
     }
 
     @keyframes emblemAuraPulse {
@@ -230,6 +242,22 @@
       background-clip: text;
       animation: goldShimmerWave 5s ease-in-out infinite;
       filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+    }
+
+    .shimmer-gold {
+      background: linear-gradient(120deg,
+          #e8d5a3 0%,
+          #fff7db 25%,
+          #ffffff 50%,
+          #fff7db 75%,
+          #e8d5a3 100%);
+      background-size: 250% auto;
+      color: transparent !important;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: goldShimmerWave 5s ease-in-out infinite;
+      display: inline-block;
+      will-change: background-position;
     }
 
     .intro-amp {
@@ -659,14 +687,15 @@
       border: 1px solid rgba(201, 168, 76, 0.25);
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
       opacity: 0;
-      transform: translateY(70px);
-      transition: opacity 1s ease, transform 1s ease;
+      transform: translate3d(0, 32px, 0);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
       overflow: hidden;
     }
 
     .page.visible {
       opacity: 1;
-      transform: translateY(0)
+      transform: translate3d(0, 0, 0);
     }
 
     .page-bg {
@@ -761,7 +790,10 @@
 
     .divider span {
       color: var(--gold);
-      font-size: 1.1rem
+      font-size: 1.1rem;
+      display: inline-block;
+      animation: softFloat 4s ease-in-out infinite;
+      will-change: transform;
     }
 
     /* ── PORTRAITS ── */
@@ -2263,14 +2295,16 @@
         transition: none !important;
       }
 
-      /* Perlambat / sederhanakan animasi page scroll */
+      /* Animasi page scroll mulus 60 FPS terakselerasi GPU di mobile */
       .page {
-        transition: opacity 0.5s ease !important;
-        transform: none !important;
+        opacity: 0 !important;
+        transform: translate3d(0, 18px, 0) !important;
+        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        will-change: opacity, transform;
       }
       .page.visible {
         opacity: 1 !important;
-        transform: none !important;
+        transform: translate3d(0, 0, 0) !important;
       }
 
       /* Kurangi efek sway/zoom pada gambar portrait */
@@ -2549,7 +2583,7 @@
       <div class="page-bg"></div>
       <div class="page-border">
         <span class="eyebrow">Kisah Kami</span>
-        <div class="script" style="font-size:clamp(1.8rem,5vw,2.8rem);margin-bottom:0.4rem;">
+        <div class="script shimmer-gold" style="font-size:clamp(1.8rem,5vw,2.8rem);margin-bottom:0.4rem;">
           Regina &amp; Rohmat
         </div>
         <div
@@ -2948,7 +2982,7 @@
           SWT senantiasa melimpahkan rahmat-Nya kepada kita semua.
         </p>
         <div class="divider" style="margin-top:1.5rem;"><span>✦</span></div>
-        <div class="script" style="font-size:clamp(2rem,6.5vw,3.2rem);color:var(--gold-light);margin-top:0.5rem;">
+        <div class="script shimmer-gold" style="font-size:clamp(2rem,6.5vw,3.2rem);margin-top:0.5rem;">
           Rohmat &amp; Regina
         </div>
         <p class="body-text" style="font-size:0.8rem;margin-top:0.5rem;color:var(--gold-light);">03 · 01 · 2027</p>
